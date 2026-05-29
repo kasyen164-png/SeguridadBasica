@@ -14,10 +14,10 @@ public class SeguridadBasica extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
-        getLogger().info("¡Plugin de Seguridad Pro activado!");
+        getLogger().info("¡Seguridad Pro Activada!");
     }
 
-    // Detección de Reach (Golpear desde muy lejos)
+    // Detección de Reach (Golpear desde más de 4.5 bloques)
     @EventHandler
     public void alAtacar(EntityDamageByEntityEvent evento) {
         if (evento.getDamager() instanceof Player) {
@@ -26,19 +26,19 @@ public class SeguridadBasica extends JavaPlugin implements Listener {
             
             double distancia = atacante.getLocation().distance(victima.getLocation());
             
-            if (distancia > 4.5) { // Más de 4.5 bloques es casi imposible sin hacks
-                atacante.kickPlayer("§c¡Hacks detectados! Reach no permitido.");
-                Bukkit.broadcastMessage("§c[Seguridad] " + atacante.getName() + " fue expulsado por Reach.");
+            if (distancia > 4.5) { 
+                atacante.kickPlayer("§c¡Hacks detectados! (Reach)");
+                Bukkit.broadcastMessage("§c[Seguridad] " + atacante.getName() + " expulsado por Reach.");
             }
         }
     }
 
-    // Detección básica de Aimbot (giros instantáneos)
+    // Detección de Aimbot (Giros bruscos de cámara)
     @EventHandler
     public void alMoverse(PlayerMoveEvent evento) {
-        float yawChange = Math.abs(evento.getTo().getYaw() - evento.getFrom().getYaw());
-        if (yawChange > 100) { // Un giro demasiado rápido para un humano
-            getLogger().warning("¡POSIBLE AIMBOT DETECTADO EN: " + evento.getPlayer().getName() + "!");
+        float giro = Math.abs(evento.getTo().getYaw() - evento.getFrom().getYaw());
+        if (giro > 100) { 
+            getLogger().warning("¡POSIBLE AIMBOT DETECTADO: " + evento.getPlayer().getName() + "!");
         }
     }
 }
