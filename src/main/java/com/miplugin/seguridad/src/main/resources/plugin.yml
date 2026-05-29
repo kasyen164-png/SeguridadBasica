@@ -1,0 +1,4 @@
+name: SeguridadBasica
+version: 1.0
+main: com.miplugin.seguridad.SeguridadBasica
+api-version: 1.20
